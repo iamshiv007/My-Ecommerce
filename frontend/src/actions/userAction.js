@@ -40,7 +40,8 @@ import {
 
 import axios from 'axios'
 
-const PORT = "http://localhost:8000"
+const PORT = process.env.REACT_APP_PORT
+console.log(PORT)
 
 // Login
 export const login = (email, password) => async (dispatch) => {
