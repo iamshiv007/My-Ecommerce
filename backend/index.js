@@ -5,7 +5,6 @@ const bodyParser = require("body-parser")
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const fileUpload = require("express-fileupload")
-const path = require("path")
 
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -49,13 +48,6 @@ process.on("unhandledRejection", (err) => {
     server.close(() => {
         process.exit(1)
     })
-})
-
-// Statis files
-app.use(express.static(path.join(__dirname, '../frontend/build')))
-
-app.get('*', function(req, res){
-    res.sendFile(path.join(__dirname, '../frontend/build/index.html'))
 })
 
 // text server
