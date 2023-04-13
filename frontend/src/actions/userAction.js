@@ -41,7 +41,7 @@ import {
 import axios from 'axios'
 
 const PORT = process.env.REACT_APP_PORT
-console.log(PORT)
+console.log(`port:${PORT}`)
 
 // Login
 export const login = (email, password) => async (dispatch) => {
