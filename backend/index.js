@@ -3,17 +3,24 @@ const dotenv = require('dotenv').config()
 const app = express()
 const bodyParser = require("body-parser")
 const cookieParser = require('cookie-parser')
-const cors = require('cors')
 const fileUpload = require("express-fileupload")
 
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
-app.use(cors({
-    origin: [process.env.ORIGIN],
-    credentials: true
-}))
 app.use(fileUpload())
+// Add CORS middleware to allow requests from a specific origin
+const allowedOrigins = [process.env.ORIGIN];
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  next();
+});
 
 // Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
